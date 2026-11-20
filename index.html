@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator Minimalist Swiss-Modern // Pastel Milk Edition</title>
+  
+  <!-- Google Fonts: JetBrains Mono (Angka & Simbol) & Plus Jakarta Sans (Label UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & COLOR PALETTES (Soft & Calm Swiss-Modernism)
+       ========================================================================== */
+    :root {
+      /* Light Mode Palette: Soft Pink & Pastel Milk Edition */
+      --bg-page: #FCEEF1;            /* Soft Pink pastel hangat */
+      --dot-color: #EBD5DB;          /* Dot grid soft rose halus */
+      
+      /* Chassis: Putih gading lembut (#FFFDF9) dengan border coklat susu muda (#E8DFD5) */
+      --chassis-bg: #FFFDF9;
+      --chassis-border: #E8DFD5;
+      --chassis-shadow: 0 20px 48px -10px rgba(130, 90, 100, 0.09), 0 8px 20px -6px rgba(130, 90, 100, 0.04);
+      --chassis-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(110, 85, 60, 0.03);
+      
+      /* Display Screen: Latar milk brown sangat muda (#F4EFEA) dengan inner shadow lembut */
+      --screen-bg: #F4EFEA;
+      --screen-border: #E8DFD5;
+      --screen-shadow: inset 0 2px 6px rgba(100, 80, 60, 0.06), 0 1px 0 rgba(255, 255, 255, 0.85);
+      
+      /* Typography Colors */
+      --text-main: #4A3F35;          /* Coklat tua hangat */
+      --text-muted: #8E7E70;         /* Milk brown redup */
+      --text-subtle: #B3A496;        /* Aksen label halus */
+      
+      /* Tombol Angka (0-9 & titik): Putih hangat (#FFFFFF) teks #4A3F35 border #EFE8E0 */
+      --btn-num-bg: #FFFFFF;
+      --btn-num-text: #4A3F35;
+      --btn-num-border: #EFE8E0;
+      --btn-num-shadow: 0 3px 0 #E2D9CF, 0 4px 6px rgba(110, 85, 60, 0.04);
+      --btn-num-active-shadow: 0 1px 0 #E2D9CF, inset 0 1px 2px rgba(110, 85, 60, 0.08);
+
+      /* Tombol Fungsi (AC, DEL, %): Coklat susu pastel (#EFE5DC) teks #7A6552 */
+      --btn-func-bg: #EFE5DC;
+      --btn-func-text: #7A6552;
+      --btn-func-border: #E5D9CE;
+      --btn-func-shadow: 0 3px 0 #DFCFC2, 0 4px 6px rgba(122, 101, 82, 0.05);
+      --btn-func-active-shadow: 0 1px 0 #DFCFC2, inset 0 1px 2px rgba(122, 101, 82, 0.08);
+
+      /* Tombol Operator (÷, ×, -, +): Biru pastel lembut (#DCEBF7) teks #3A6382 */
+      --btn-op-bg: #DCEBF7;
+      --btn-op-text: #3A6382;
+      --btn-op-border: #CCE0F0;
+      --btn-op-shadow: 0 3px 0 #C2DAED, 0 4px 6px rgba(58, 99, 130, 0.06);
+      --btn-op-active-shadow: 0 1px 0 #C2DAED, inset 0 1px 2px rgba(58, 99, 130, 0.1);
+      --btn-op-highlight: #CFE3F2;
+
+      /* Tombol Sama Dengan (=): Biru pastel lebih tegas (#9EC5E5) teks biru gelap (#1E3F5A) */
+      --btn-accent-bg: #9EC5E5;
+      --btn-accent-text: #1E3F5A;
+      --btn-accent-border: #8BB6DC;
+      --btn-accent-shadow: 0 3px 0 #85B0D6, 0 4px 10px rgba(30, 63, 90, 0.18);
+      --btn-accent-active-shadow: 0 1px 0 #85B0D6, inset 0 1px 2px rgba(30, 63, 90, 0.15);
+
+      /* Micro UI Details */
+      --toggle-track: #EFE8E0;
+      --toggle-thumb: #FFFFFF;
+      --toast-bg: #4A3F35;
+      --toast-text: #FCEEF1;
+      --led-active: #5BB381;
+      --error-color: #D46255;
+    }
+
+    [data-theme="dark"] {
+      /* Dark Mode Palette (Warm Espresso Plum & Slate Night) */
+      --bg-page: #191416;
+      --dot-color: #2D2226;
+
+      --chassis-bg: #221E1A;
+      --chassis-border: #332B25;
+      --chassis-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 8px 24px rgba(0, 0, 0, 0.4);
+      --chassis-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+
+      --screen-bg: #1A1614;
+      --screen-border: #2F2722;
+      --screen-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.04);
+
+      --text-main: #F3EBE3;
+      --text-muted: #8E7E72;
+      --text-subtle: #5A4E46;
+
+      --btn-num-bg: #2B2520;
+      --btn-num-text: #F3EBE3;
+      --btn-num-border: #3A322C;
+      --btn-num-shadow: 0 3px 0 #1A1613, 0 4px 6px rgba(0, 0, 0, 0.3);
+      --btn-num-active-shadow: 0 1px 0 #1A1613, inset 0 1px 3px rgba(0, 0, 0, 0.4);
+
+      --btn-func-bg: #382C24;
+      --btn-func-text: #E5D5C6;
+      --btn-func-border: #47392F;
+      --btn-func-shadow: 0 3px 0 #201813, 0 4px 6px rgba(0, 0, 0, 0.3);
+      --btn-func-active-shadow: 0 1px 0 #201813, inset 0 1px 3px rgba(0, 0, 0, 0.4);
+
+      --btn-op-bg: #223444;
+      --btn-op-text: #C3DFFA;
+      --btn-op-border: #2D4357;
+      --btn-op-shadow: 0 3px 0 #15222E, 0 4px 6px rgba(0, 0, 0, 0.3);
+      --btn-op-active-shadow: 0 1px 0 #15222E, inset 0 1px 3px rgba(0, 0, 0, 0.4);
+      --btn-op-highlight: #2A4155;
+
+      --btn-accent-bg: #4B7A9E;
+      --btn-accent-text: #FFFFFF;
+      --btn-accent-border: #5A8DB4;
+      --btn-accent-shadow: 0 3px 0 #2F536E, 0 4px 12px rgba(75, 122, 158, 0.35);
+      --btn-accent-active-shadow: 0 1px 0 #2F536E, inset 0 1px 2px rgba(0, 0, 0, 0.25);
+
+      --toggle-track: #2F2722;
+      --toggle-thumb: #E5D5C6;
+      --toast-bg: #F3EBE3;
+      --toast-text: #221E1A;
+      --led-active: #40B873;
+      --error-color: #E27366;
+    }
+
+    /* ==========================================================================
+       2. RESET & BASE STYLES WITH ARCHITECTURAL DOT-GRID PATTERN
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      /* Subtle dot-grid pattern: titik-titik halus teratur di atas latar soft pink */
+      background-image: radial-gradient(var(--dot-color) 1.25px, transparent 1.25px);
+      background-size: 20px 20px;
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s ease;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       3. CALCULATOR CHASSIS (Putih Gading, 28px Radius, Soft Shadow)
+       ========================================================================== */
+    .calculator-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .calculator-chassis {
+      background-color: var(--chassis-bg);
+      border: 1px solid var(--chassis-border);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: var(--chassis-shadow), var(--chassis-highlight);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+      transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    /* Top Utility Header */
+    .chassis-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
+    .brand-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-led {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--led-active);
+      box-shadow: 0 0 6px var(--led-active);
+      transition: transform 0.2s ease;
+    }
+
+    .status-led.busy {
+      transform: scale(1.3);
+    }
+
+    .brand-tag {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .brand-sub {
+      font-size: 10px;
+      color: var(--text-subtle);
+      font-weight: 500;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Tactile Audio Toggle Button */
+    .icon-btn {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      border-radius: 8px;
+      transition: color 0.2s, background-color 0.2s;
+    }
+
+    .icon-btn:hover {
+      color: var(--text-main);
+      background-color: rgba(110, 85, 60, 0.06);
+    }
+
+    [data-theme="dark"] .icon-btn:hover {
+      background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .icon-btn svg {
+      width: 17px;
+      height: 17px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Theme Toggle Switch */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      background: var(--toggle-track);
+      padding: 3px;
+      border-radius: 20px;
+      width: 52px;
+      height: 28px;
+      position: relative;
+      border: 1px solid var(--chassis-border);
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .theme-toggle input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--toggle-thumb);
+      box-shadow: 0 1px 3px rgba(110, 85, 60, 0.15);
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-toggle input:checked + .toggle-slider {
+      transform: translateX(24px);
+    }
+
+    .toggle-slider svg {
+      width: 12px;
+      height: 12px;
+      fill: none;
+      stroke: var(--text-muted);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.2s;
+    }
+
+    /* ==========================================================================
+       4. DUAL-ROW PRECISION DISPLAY (Milk Brown, 20px Radius, Inner Shadow)
+       ========================================================================== */
+    .calculator-screen {
+      background-color: var(--screen-bg);
+      border: 1px solid var(--screen-border);
+      border-radius: 20px;
+      padding: 16px 18px;
+      box-shadow: var(--screen-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 104px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .screen-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .screen-indicator {
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--text-subtle);
+      font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .screen-history {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-align: right;
+      min-height: 20px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      transition: color 0.2s ease;
+    }
+
+    .screen-history::-webkit-scrollbar {
+      display: none;
+    }
+
+    .screen-main {
+      font-size: 38px;
+      font-weight: 600;
+      color: var(--text-main);
+      text-align: right;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      transition: font-size 0.15s ease, color 0.2s ease;
+      word-break: break-all;
+    }
+
+    .screen-main::-webkit-scrollbar {
+      display: none;
+    }
+
+    .screen-main.error {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--error-color);
+      letter-spacing: normal;
+    }
+
+    /* Toast Notifikasi "Tersalin!" */
+    .copy-toast {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-25px);
+      background-color: var(--toast-bg);
+      color: var(--toast-text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+      box-shadow: 0 4px 12px rgba(110, 85, 60, 0.15);
+      z-index: 10;
+    }
+
+    .copy-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       5. TACTILE KEYPAD GRID (Harmonious Pastel & Warm Tones)
+       ========================================================================== */
+    .keypad-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid transparent;
+      outline: none;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 19px;
+      font-weight: 500;
+      height: 58px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.2s ease, filter 0.15s ease;
+    }
+
+    /* Efek Tekanan Fisik Taktil */
+    .btn:active, .btn.active-press {
+      transform: translateY(2px);
+    }
+
+    /* 1. Tombol Angka (0-9, Titik, ±): Putih hangat (#FFFFFF), teks #4A3F35, border #EFE8E0 */
+    .btn-num {
+      background-color: var(--btn-num-bg);
+      color: var(--btn-num-text);
+      border-color: var(--btn-num-border);
+      box-shadow: var(--btn-num-shadow);
+    }
+
+    .btn-num:active, .btn-num.active-press {
+      box-shadow: var(--btn-num-active-shadow);
+    }
+
+    /* 2. Tombol Fungsi (AC, DEL, %): Coklat susu pastel (#EFE5DC), teks #7A6552 */
+    .btn-func {
+      background-color: var(--btn-func-bg);
+      color: var(--btn-func-text);
+      border-color: var(--btn-func-border);
+      box-shadow: var(--btn-func-shadow);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-func:active, .btn-func.active-press {
+      box-shadow: var(--btn-func-active-shadow);
+    }
+
+    /* 3. Tombol Operator (÷, ×, -, +): Biru pastel lembut (#DCEBF7), teks #3A6382 */
+    .btn-op {
+      background-color: var(--btn-op-bg);
+      color: var(--btn-op-text);
+      border-color: var(--btn-op-border);
+      box-shadow: var(--btn-op-shadow);
+      font-size: 21px;
+      font-weight: 600;
+    }
+
+    .btn-op.active-op {
+      background-color: var(--btn-op-highlight);
+      border-color: var(--btn-op-text);
+    }
+
+    .btn-op:active, .btn-op.active-press {
+      box-shadow: var(--btn-op-active-shadow);
+    }
+
+    /* 4. Tombol Sama Dengan (=): Biru pastel lebih tegas (#9EC5E5), teks biru gelap (#1E3F5A) */
+    .btn-accent {
+      background-color: var(--btn-accent-bg);
+      color: var(--btn-accent-text);
+      border-color: var(--btn-accent-border);
+      box-shadow: var(--btn-accent-shadow);
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .btn-accent:active, .btn-accent.active-press {
+      box-shadow: var(--btn-accent-active-shadow);
+    }
+
+    .btn:hover {
+      filter: brightness(0.98);
+    }
+
+    [data-theme="dark"] .btn:hover {
+      filter: brightness(1.08);
+    }
+
+    /* ==========================================================================
+       6. CHASSIS FOOTER & HINTS
+       ========================================================================== */
+    .chassis-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 10px;
+      color: var(--text-subtle);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .keyboard-hint {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .kbd-badge {
+      display: inline-block;
+      padding: 1px 5px;
+      background-color: rgba(110, 85, 60, 0.06);
+      border-radius: 4px;
+      border: 1px solid rgba(110, 85, 60, 0.09);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+    }
+
+    [data-theme="dark"] .kbd-badge {
+      background-color: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .hint-link {
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 0.2s;
+    }
+
+    .hint-link:hover {
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       7. RESPONSIVE DESIGN ADJUSTMENTS
+       ========================================================================== */
+    @media (max-width: 420px) {
+      body {
+        padding: 12px 10px;
+      }
+
+      .calculator-chassis {
+        padding: 18px 16px;
+        border-radius: 24px;
+        gap: 16px;
+      }
+
+      .calculator-screen {
+        min-height: 94px;
+        padding: 14px;
+        border-radius: 16px;
+      }
+
+      .screen-main {
+        font-size: 32px;
+      }
+
+      .keypad-grid {
+        gap: 10px;
+      }
+
+      .btn {
+        height: 52px;
+        font-size: 18px;
+        border-radius: 14px;
+      }
+
+      .btn-func {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="calculator-wrapper" role="region" aria-label="Kalkulator Digital Swiss-Modern">
+    <div class="calculator-chassis">
+      
+      <!-- Top Utility Bar: Branding, Sound Toggle, Mode Switch -->
+      <header class="chassis-header">
+        <div class="brand-meta">
+          <span class="status-led" id="statusLed" title="Status: Siap"></span>
+          <span class="brand-tag">TE-01 // PASTEL</span>
+          <span class="brand-sub">EDITION</span>
+        </div>
+
+        <div class="header-controls">
+          <!-- Audio Feedback Toggle Button -->
+          <button type="button" class="icon-btn" id="soundToggle" title="Suara Sentuhan (Audio Aktif)" aria-label="Toggle Suara">
+            <!-- Speaker On SVG -->
+            <svg id="soundIconOn" viewBox="0 0 24 24">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+            <!-- Speaker Off SVG (Hidden by default) -->
+            <svg id="soundIconOff" viewBox="0 0 24 24" style="display: none;">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+          </button>
+
+          <!-- Light/Dark Mode Switch -->
+          <label class="theme-toggle" title="Ganti Mode Terang / Gelap" aria-label="Toggle Light / Dark Mode">
+            <input type="checkbox" id="themeSwitch" />
+            <span class="toggle-slider">
+              <!-- Sun / Moon SVG Icon -->
+              <svg id="themeIcon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </span>
+          </label>
+        </div>
+      </header>
+
+      <!-- Precision Dual-Row Display (Milk Brown Latar, 20px Radius) -->
+      <section class="calculator-screen" id="screenContainer" title="Klik untuk menyalin hasil" aria-live="polite">
+        <div class="screen-meta">
+          <span class="screen-indicator">INPUT // MEM</span>
+          <span class="copy-toast" id="copyToast">Tersalin!</span>
+        </div>
+        <!-- Baris Atas: Riwayat / Ekspresi Berjalan -->
+        <div class="screen-history" id="displayHistory" aria-label="Riwayat Ekspresi">&nbsp;</div>
+        <!-- Baris Bawah: Hasil Utama / Operand Aktif -->
+        <div class="screen-main" id="displayMain" aria-label="Layar Hasil">0</div>
+      </section>
+
+      <!-- Keypad Grid (Harmonious Pastel Palette) -->
+      <section class="keypad-grid" role="group" aria-label="Papan Tombol Kalkulator">
+        <!-- Baris 1: Tombol Fungsi (Coklat Susu) & Operator Bagi (Biru Pastel) -->
+        <button type="button" class="btn btn-func" data-action="all-clear" data-key="Escape" aria-label="Reset Semua">AC</button>
+        <button type="button" class="btn btn-func" data-action="delete" data-key="Backspace" aria-label="Hapus Satu Karakter">DEL</button>
+        <button type="button" class="btn btn-func" data-action="percent" data-key="%" aria-label="Persen">%</button>
+        <button type="button" class="btn btn-op" data-operator="÷" data-key="/" aria-label="Bagi">÷</button>
+
+        <!-- Baris 2: 7, 8, 9 (Putih Hangat) & Operator Kali (Biru Pastel) -->
+        <button type="button" class="btn btn-num" data-num="7" data-key="7">7</button>
+        <button type="button" class="btn btn-num" data-num="8" data-key="8">8</button>
+        <button type="button" class="btn btn-num" data-num="9" data-key="9">9</button>
+        <button type="button" class="btn btn-op" data-operator="×" data-key="*" aria-label="Kali">×</button>
+
+        <!-- Baris 3: 4, 5, 6 (Putih Hangat) & Operator Kurang (Biru Pastel) -->
+        <button type="button" class="btn btn-num" data-num="4" data-key="4">4</button>
+        <button type="button" class="btn btn-num" data-num="5" data-key="5">5</button>
+        <button type="button" class="btn btn-num" data-num="6" data-key="6">6</button>
+        <button type="button" class="btn btn-op" data-operator="−" data-key="-" aria-label="Kurang">−</button>
+
+        <!-- Baris 4: 1, 2, 3 (Putih Hangat) & Operator Tambah (Biru Pastel) -->
+        <button type="button" class="btn btn-num" data-num="1" data-key="1">1</button>
+        <button type="button" class="btn btn-num" data-num="2" data-key="2">2</button>
+        <button type="button" class="btn btn-num" data-num="3" data-key="3">3</button>
+        <button type="button" class="btn btn-op" data-operator="+" data-key="+" aria-label="Tambah">+</button>
+
+        <!-- Baris 5: Negasi (±), 0, Titik Desimal, & Sama Dengan (=) Biru Pastel Tegas -->
+        <button type="button" class="btn btn-num" data-action="toggle-sign" data-key="±" aria-label="Positif atau Negatif">±</button>
+        <button type="button" class="btn btn-num" data-num="0" data-key="0">0</button>
+        <button type="button" class="btn btn-num" data-action="decimal" data-key="." aria-label="Titik Desimal">.</button>
+        <button type="button" class="btn btn-accent" data-action="calculate" data-key="Enter" aria-label="Hitung Sama Dengan">=</button>
+      </section>
+
+      <!-- Chassis Footer: Indikator & Pintasan Keyboard -->
+      <footer class="chassis-footer">
+        <div class="keyboard-hint">
+          <span>KEYBOARD:</span>
+          <span class="kbd-badge">0-9</span>
+          <span class="kbd-badge">+−×÷</span>
+          <span class="kbd-badge">↵</span>
+        </div>
+        <span class="hint-link" id="copyHintBtn" title="Klik display untuk salin hasil">SALIN: KLIK LAYAR</span>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       8. JAVASCRIPT LOGIC & TACTILE AUDIO SYNTHESIS
+       ========================================================================== */
+       ========================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* --- A. STATE MANAGEMENT --- */
+      const state = {
+        currentOperand: '0',
+        previousOperand: '',
+        operation: null,
+        isCalculated: false,
+        hasError: false,
+        soundEnabled: true,
+        theme: 'light'
+      };
+
+      /* --- B. DOM ELEMENT REFERENCES --- */
+      const displayMain = document.getElementById('displayMain');
+      const displayHistory = document.getElementById('displayHistory');
+      const screenContainer = document.getElementById('screenContainer');
+      const copyToast = document.getElementById('copyToast');
+      const themeSwitch = document.getElementById('themeSwitch');
+      const soundToggle = document.getElementById('soundToggle');
+      const soundIconOn = document.getElementById('soundIconOn');
+      const soundIconOff = document.getElementById('soundIconOff');
+      const statusLed = document.getElementById('statusLed');
+      const themeIcon = document.getElementById('themeIcon');
+      const buttons = document.querySelectorAll('.btn');
+
+      /* --- C. WEB AUDIO API: TACTILE MECHANICAL CLICK SYNTHESIS --- */
+      let audioCtx = null;
+      function initAudio() {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) {
+            audioCtx = new AudioContextClass();
+          }
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+      }
+
+      function playTactileClick(isAccent = false) {
+        if (!state.soundEnabled) return;
+        try {
+          initAudio();
+          if (!audioCtx) return;
+
+          const now = audioCtx.currentTime;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          if (isAccent) {
+            // Tombol '=': nada hangat dan lembut bernuansa marimba/mechanical switch
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(280, now);
+            osc.frequency.exponentialRampToValueAtTime(75, now + 0.038);
+            gain.gain.setValueAtTime(0.12, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.038);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.039);
+          } else {
+            // Tombol umum: klik renyah mikro yang memuaskan
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(520, now);
+            osc.frequency.exponentialRampToValueAtTime(110, now + 0.022);
+            gain.gain.setValueAtTime(0.07, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.022);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.023);
+          }
+        } catch (e) {
+          // Graceful fallback
+        }
+      }
+
+      /* --- D. FORMATTING & PRECISION MATH --- */
+      function formatNumber(numStr) {
+        if (numStr === '' || numStr === null || numStr === undefined) return '';
+        if (numStr === 'Error' || numStr === 'Cannot divide by 0') return numStr;
+
+        let isNegative = false;
+        let str = String(numStr);
+        if (str.startsWith('-')) {
+          isNegative = true;
+          str = str.substring(1);
+        }
+
+        const parts = str.split('.');
+        let integerPart = parts[0];
+        const decimalPart = parts.length > 1 ? parts[1] : null;
+
+        // Scientific notation fallback jika digit melebihi batas layar
+        if (integerPart.length > 14) {
+          const num = Number(numStr);
+          if (!isNaN(num)) {
+            return num.toExponential(6);
+          }
+        }
+
+        // Pemisah ribuan dengan koma
+        integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+        let result = (isNegative ? '-' : '') + integerPart;
+        if (decimalPart !== null) {
+          result += '.' + decimalPart;
+        }
+        return result;
+      }
+
+      function preciseCalculate(a, b, op) {
+        const numA = parseFloat(a);
+        const numB = parseFloat(b);
+
+        if (isNaN(numA) || isNaN(numB)) return 'Error';
+
+        let res;
+        switch (op) {
+          case '+':
+            res = numA + numB;
+            break;
+          case '−':
+          case '-':
+            res = numA - numB;
+            break;
+          case '×':
+          case '*':
+            res = numA * numB;
+            break;
+          case '÷':
+          case '/':
+            if (numB === 0) return 'Cannot divide by 0';
+            res = numA / numB;
+            break;
+          default:
+            return numB;
+        }
+
+        // Hilangkan floating-point noise (seperti 0.1 + 0.2 = 0.30000000000000004)
+        const factor = 1e12;
+        const cleaned = Math.round((res + Number.EPSILON) * factor) / factor;
+        return String(cleaned);
+      }
+
+      /* --- E. DISPLAY UPDATE & FONT AUTO-SCALING --- */
+      function updateDisplay() {
+        if (state.hasError) {
+          displayMain.textContent = state.currentOperand;
+          displayMain.classList.add('error');
+          displayHistory.innerHTML = state.previousOperand 
+            ? `${formatNumber(state.previousOperand)} ${state.operation || ''}` 
+            : '&nbsp;';
+          return;
+        }
+
+        displayMain.classList.remove('error');
+
+        const formattedCurrent = formatNumber(state.currentOperand);
+        displayMain.textContent = formattedCurrent || '0';
+
+        // Penyesuaian ukuran font dinamis agar angka panjang tidak terpotong
+        const charCount = formattedCurrent.length;
+        if (charCount > 16) {
+          displayMain.style.fontSize = '22px';
+        } else if (charCount > 12) {
+          displayMain.style.fontSize = '26px';
+        } else if (charCount > 9) {
+          displayMain.style.fontSize = '31px';
+        } else {
+          displayMain.style.fontSize = '';
+        }
+
+        if (state.previousOperand !== '') {
+          const formattedPrev = formatNumber(state.previousOperand);
+          displayHistory.textContent = `${formattedPrev} ${state.operation || ''}`;
+        } else {
+          displayHistory.innerHTML = '&nbsp;';
+        }
+
+        // Highlight operator yang sedang aktif
+        document.querySelectorAll('.btn-op').forEach(btn => {
+          if (state.operation && btn.dataset.operator === state.operation && !state.isCalculated) {
+            btn.classList.add('active-op');
+          } else {
+            btn.classList.remove('active-op');
+          }
+        });
+
+        // Efek denyut halus pada LED indikator
+        statusLed.classList.add('busy');
+        setTimeout(() => statusLed.classList.remove('busy'), 140);
+      }
+
+      /* --- F. CALCULATOR OPERATIONS --- */
+      function inputDigit(digit) {
+        if (state.hasError || state.isCalculated) {
+          state.currentOperand = digit;
+          state.isCalculated = false;
+          state.hasError = false;
+        } else {
+          if (state.currentOperand === '0') {
+            state.currentOperand = digit;
+          } else {
+            if (state.currentOperand.replace(/[^0-9]/g, '').length >= 15) return;
+            state.currentOperand += digit;
+          }
+        }
+        updateDisplay();
+      }
+
+      function inputDecimal() {
+        if (state.hasError || state.isCalculated) {
+          state.currentOperand = '0.';
+          state.isCalculated = false;
+          state.hasError = false;
+          updateDisplay();
+          return;
+        }
+
+        if (!state.currentOperand.includes('.')) {
+          state.currentOperand += '.';
+          updateDisplay();
+        }
+      }
+
+      function handleOperator(op) {
+        if (state.hasError) return;
+
+        if (state.operation !== null && !state.isCalculated && state.previousOperand !== '') {
+          const result = preciseCalculate(state.previousOperand, state.currentOperand, state.operation);
+          if (result === 'Cannot divide by 0') {
+            state.hasError = true;
+            state.currentOperand = result;
+            updateDisplay();
+            return;
+          }
+          state.previousOperand = result;
+          state.currentOperand = result;
+        } else {
+          state.previousOperand = state.currentOperand;
+        }
+
+        state.operation = op;
+        state.isCalculated = true;
+        updateDisplay();
+      }
+
+      function handleEquals() {
+        if (state.hasError) return;
+        if (state.operation === null || state.previousOperand === '') return;
+
+        const result = preciseCalculate(state.previousOperand, state.currentOperand, state.operation);
+
+        if (result === 'Cannot divide by 0') {
+          state.hasError = true;
+          state.currentOperand = result;
+        } else {
+          const prevFormatted = formatNumber(state.previousOperand);
+          const currFormatted = formatNumber(state.currentOperand);
+          displayHistory.textContent = `${prevFormatted} ${state.operation} ${currFormatted} =`;
+
+          state.currentOperand = result;
+          state.previousOperand = '';
+          state.operation = null;
+          state.isCalculated = true;
+        }
+
+        updateDisplay();
+      }
+
+      function handlePercent() {
+        if (state.hasError) return;
+        const current = parseFloat(state.currentOperand);
+        if (isNaN(current)) return;
+
+        if (state.previousOperand !== '' && (state.operation === '+' || state.operation === '−')) {
+          const prev = parseFloat(state.previousOperand);
+          const percentVal = (prev * current) / 100;
+          state.currentOperand = String(percentVal);
+        } else {
+          state.currentOperand = String(current / 100);
+        }
+
+        updateDisplay();
+      }
+
+      function toggleSign() {
+        if (state.hasError) return;
+        if (state.currentOperand === '0' || state.currentOperand === '') return;
+
+        if (state.currentOperand.startsWith('-')) {
+          state.currentOperand = state.currentOperand.substring(1);
+        } else {
+          state.currentOperand = '-' + state.currentOperand;
+        }
+        updateDisplay();
+      }
+
+      function deleteLastChar() {
+        if (state.hasError) {
+          clearAll();
+          return;
+        }
+        if (state.isCalculated) {
+          state.currentOperand = '0';
+          updateDisplay();
+          return;
+        }
+
+        if (state.currentOperand.length > 1) {
+          state.currentOperand = state.currentOperand.slice(0, -1);
+          if (state.currentOperand === '-') {
+            state.currentOperand = '0';
+          }
+        } else {
+          state.currentOperand = '0';
+        }
+        updateDisplay();
+      }
+
+      function clearAll() {
+        state.currentOperand = '0';
+        state.previousOperand = '';
+        state.operation = null;
+        state.isCalculated = false;
+        state.hasError = false;
+        displayHistory.innerHTML = '&nbsp;';
+        updateDisplay();
+      }
+
+      /* --- G. CLIPBOARD UTILITY --- */
+      function copyResultToClipboard() {
+        const valToCopy = state.currentOperand;
+        if (!valToCopy || valToCopy === 'Cannot divide by 0') return;
+
+        navigator.clipboard.writeText(valToCopy).then(() => {
+          copyToast.classList.add('show');
+          setTimeout(() => {
+            copyToast.classList.remove('show');
+          }, 1500);
+        }).catch(() => {
+          const tempInput = document.createElement('input');
+          tempInput.value = valToCopy;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempInput);
+
+          copyToast.classList.add('show');
+          setTimeout(() => {
+            copyToast.classList.remove('show');
+          }, 1500);
+        });
+      }
+
+      screenContainer.addEventListener('click', copyResultToClipboard);
+      document.getElementById('copyHintBtn').addEventListener('click', copyResultToClipboard);
+
+      /* --- H. THEME TOGGLE (LIGHT / DARK) --- */
+      function setTheme(theme) {
+        state.theme = theme;
+        if (theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          themeSwitch.checked = true;
+          themeIcon.innerHTML = `
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          `;
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+          themeSwitch.checked = false;
+          themeIcon.innerHTML = `
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          `;
+        }
+        try {
+          localStorage.setItem('calc_pastel_theme', theme);
+        } catch (e) {}
+      }
+
+      themeSwitch.addEventListener('change', (e) => {
+        playTactileClick();
+        setTheme(e.target.checked ? 'dark' : 'light');
+      });
+
+      try {
+        const savedTheme = localStorage.getItem('calc_pastel_theme');
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          setTheme('light');
+        }
+      } catch (e) {
+        setTheme('light');
+      }
+
+      /* --- I. AUDIO MUTE TOGGLE --- */
+      soundToggle.addEventListener('click', () => {
+        state.soundEnabled = !state.soundEnabled;
+        if (state.soundEnabled) {
+          soundIconOn.style.display = 'block';
+          soundIconOff.style.display = 'none';
+          soundToggle.title = 'Suara Sentuhan (Audio Aktif)';
+          playTactileClick();
+        } else {
+          soundIconOn.style.display = 'none';
+          soundIconOff.style.display = 'block';
+          soundToggle.title = 'Suara Sentuhan (Audio Mati)';
+        }
+      });
+
+      /* --- J. BUTTON CLICKS --- */
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          const isAccent = button.classList.contains('btn-accent');
+          playTactileClick(isAccent);
+
+          if (button.dataset.num !== undefined) {
+            inputDigit(button.dataset.num);
+          } else if (button.dataset.operator !== undefined) {
+            handleOperator(button.dataset.operator);
+          } else if (button.dataset.action !== undefined) {
+            switch (button.dataset.action) {
+              case 'all-clear':
+                clearAll();
+                break;
+              case 'delete':
+                deleteLastChar();
+                break;
+              case 'percent':
+                handlePercent();
+                break;
+              case 'decimal':
+                inputDecimal();
+                break;
+              case 'toggle-sign':
+                toggleSign();
+                break;
+              case 'calculate':
+                handleEquals();
+                break;
+            }
+          }
+        });
+      });
+
+      /* --- K. PHYSICAL KEYBOARD INPUT --- */
+      function triggerButtonVisual(btn) {
+        if (!btn) return;
+        btn.classList.add('active-press');
+        setTimeout(() => btn.classList.remove('active-press'), 120);
+      }
+
+      window.addEventListener('keydown', (e) => {
+        if (['/', '*', '-', '+', 'Enter', '=', 'Backspace', 'Escape', '%'].includes(e.key)) {
+          e.preventDefault();
+        }
+
+        // 1. Angka 0-9
+        if (e.key >= '0' && e.key <= '9') {
+          const btn = document.querySelector(`.btn[data-num="${e.key}"]`);
+          triggerButtonVisual(btn);
+          playTactileClick();
+          inputDigit(e.key);
+          return;
+        }
+
+        // 2. Titik Desimal (. atau ,)
+        if (e.key === '.' || e.key === ',') {
+          const btn = document.querySelector(`.btn[data-action="decimal"]`);
+          triggerButtonVisual(btn);
+          playTactileClick();
+          inputDecimal();
+          return;
+        }
+
+        // 3. Operator Matematika
+        if (e.key === '+') {
+          const btn = document.querySelector(`.btn[data-operator="+"]`);
+          triggerButtonVisual(btn);
+          playTactileClick();
+          handleOperator('+');
+          return;
+        }
+        if (e.key === '-') {
+          const btn = document.querySelector(`.btn[data-operator="−"]`);
+          triggerButtonVisual(btn);
+          playTactileClick();
+          handleOperator('−');
+          return;
+        }
+        if (e.key === '*' || e.key === 'x' || e.key === 'X') {
+          const btn = document.querySelector(`.btn[data-operator="×"]`);
+          triggerButtonVisual(btn);
+          playTactileClick();
+          handleOperator('×');
+          return;
+        }
+        if (e.key === '/') {
+          const btn = document.querySelector(`.btn[data-operator="÷"]`);
+          triggerButtonVisual(btn);
+          playTactileClick();
+          handleOperator('÷');
+          return;
+        }
+
+        // 4. Sama Dengan (Enter atau =)
+        if (e.key === 'Enter' || e.key === '=') {
+          const btn = document.querySelector(`.btn[data-action="calculate"]`);
+          triggerButtonVisual(btn);
+          playTactileClick(true);
+          handleEquals();
+          return;
+        }
+
+        // 5. Hapus (Backspace)
+        if (e.key === 'Backspace') {
+          const btn = document.querySelector(`.btn[data-action="delete"]`);
+          triggerButtonVisual(btn);
+          playTactileClick();
+          deleteLastChar();
+          return;
+        }
+
+        // 6. Reset (Escape atau 'c' / 'C')
+        if (e.key === 'Escape' || e.key.toLowerCase() === 'c') {
+          const btn = document.querySelector(`.btn[data-action="all-clear"]`);
+          triggerButtonVisual(btn);
+          playTactileClick();
+          clearAll();
+          return;
+        }
+
+        // 7. Persentase (%)
+        if (e.key === '%') {
+          const btn = document.querySelector(`.btn[data-action="percent"]`);
+          triggerButtonVisual(btn);
+          playTactileClick();
+          handlePercent();
+          return;
+        }
+      });
+
+      // Render awal
+      updateDisplay();
+    })();
+  </script>
+</body>
+</html>
